@@ -35,4 +35,9 @@ class InstagramIdTest {
         System.out.println(timestampMaskValue + ", " + Arrays.toString(Bytes.toByte(timestampMaskValue, 8)));
     }
 
+    @Test
+    void exportShardId() {
+        InstagramId id = InstagramId.makeId(1672498800001L, 10, 1);
+        assertThat(id.getShardId()).isEqualTo(10);
+    }
 }
