@@ -2,10 +2,29 @@ package me.yevgnenll.uniqueid.id;
 
 public class InstagramId extends UniqueId implements Comparable<InstagramId> {
 
+    private static final long serialVersionUID = 7526471155622776147L;
+
     private final long value;
 
     private InstagramId(long value) {
         this.value = value;
+    }
+
+    enum Component {
+        TITEMSTAMP(41),
+        SHARD(13),
+        SEQUENCE(10),
+        ;
+
+        private final long bit;
+
+        Component(long bit) {
+            this.bit = bit;
+        }
+
+        public long getBit() {
+            return this.bit;
+        }
     }
 
     @Override
