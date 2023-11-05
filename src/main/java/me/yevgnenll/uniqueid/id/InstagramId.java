@@ -25,6 +25,13 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
         public long getBit() {
             return this.bit;
         }
+
+        public long getMask() {
+            // 1111
+            // 1110
+            // 0001
+            return -1L ^ (-1L << this.bit);
+        }
     }
 
     @Override
@@ -40,5 +47,10 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
     @Override
     public int compareTo(InstagramId o) {
         return (int) (this.value - o.value);
+    }
+
+    @Override
+    public long getShardId() {
+        return 0;
     }
 }
