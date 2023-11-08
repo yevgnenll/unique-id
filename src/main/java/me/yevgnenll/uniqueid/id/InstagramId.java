@@ -117,8 +117,14 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
         return SHARD.maskedValue(value >> SHARD.getShiftBits());
     }
 
+    @Override
     public long getTimestamp() {
         return TIMESTAMP.maskedValue(value >> TIMESTAMP.getShiftBits()) + OUT_EPOCH_TIME;
+    }
+
+    @Override
+    public long getSequence() {
+        return SEQUENCE.maskedValue(value);
     }
 
     @Override

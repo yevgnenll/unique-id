@@ -46,4 +46,10 @@ class InstagramIdTest {
         InstagramId id = InstagramId.makeId(1672498800001L, 10, 1);
         assertThat(id.getTimestamp()).isEqualTo(1672498800001L);
     }
+
+    @Test
+    void exportSequence() {
+        InstagramId id = InstagramId.makeId(1672498800001L, 10, 15);
+        assertThat(id.getSequence()).isEqualTo(15L);
+    }
 }
