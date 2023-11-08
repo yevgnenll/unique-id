@@ -29,7 +29,7 @@ class InstagramIdTest {
         System.out.println(Arrays.toString(Bytes.toByte(seqMaskValue, 8)));
 
         // 41개 비트가 1로 채워져야 한다.
-        long timestampMaskValue = InstagramId.Component.TITEMSTAMP.getMask();
+        long timestampMaskValue = InstagramId.Component.TIMESTAMP.getMask();
         assertThat(timestampMaskValue).isEqualTo(2199023255551L);
         assertThat(Bytes.toByte(timestampMaskValue, 8)).isEqualTo(new byte[] {0, 0, 1, -1, -1, -1, -1, -1});
         System.out.println(timestampMaskValue + ", " + Arrays.toString(Bytes.toByte(timestampMaskValue, 8)));
@@ -39,5 +39,11 @@ class InstagramIdTest {
     void exportShardId() {
         InstagramId id = InstagramId.makeId(1672498800001L, 10, 1);
         assertThat(id.getShardId()).isEqualTo(10);
+    }
+
+    @Test
+    void exportTimestamp() {
+        InstagramId id = InstagramId.makeId(1672498800001L, 10, 1);
+        assertThat(id.getTimestamp()).isEqualTo(1672498800001L);
     }
 }

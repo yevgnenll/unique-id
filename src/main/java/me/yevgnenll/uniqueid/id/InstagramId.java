@@ -4,8 +4,7 @@ import me.yevgnenll.uniqueid.util.Checks;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import static me.yevgnenll.uniqueid.id.InstagramId.Component.SEQUENCE;
-import static me.yevgnenll.uniqueid.id.InstagramId.Component.SHARD;
+import static me.yevgnenll.uniqueid.id.InstagramId.Component.*;
 
 public class InstagramId extends UniqueId implements Comparable<InstagramId> {
 
@@ -38,7 +37,7 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
         long maskedShardId = SHARD.maskedValue(shardId);
         long maskedSequenceId = SEQUENCE.maskedValue(sequence);
 
-        return (modifiedTimestamp << SEQUENCE.getShiftBits()) |
+        return (modifiedTimestamp << TIMESTAMP.getShiftBits()) |
                 (maskedShardId << SHARD.getShiftBits()) |
                 (maskedSequenceId << SEQUENCE.getShiftBits());
     }
@@ -49,7 +48,7 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
 
 
     protected enum Component {
-        TITEMSTAMP(41, 23),
+        TIMESTAMP(41, 23),
         SHARD(13, 10),
         SEQUENCE(10, 0),
         ;
@@ -116,6 +115,10 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
     @Override
     public long getShardId() {
         return SHARD.maskedValue(value >> SHARD.getShiftBits());
+    }
+
+    public long getTimestamp() {
+        return TIMESTAMP.maskedValue(value >> TIMESTAMP.getShiftBits()) + OUT_EPOCH_TIME;
     }
 
     @Override
