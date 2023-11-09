@@ -54,9 +54,20 @@ class InstagramIdTest {
     }
 
     @Test
-    void nextKey() {
-        InstagramId.nextId();
-        InstagramId second = InstagramId.nextId();
-        assertThat(second.getSequence()).isEqualTo(2);
+    void upperBound() {
+        InstagramId id = InstagramId.makeId();
+        InstagramId upperBound = InstagramId.upperBound(id.getTimestamp());
+        assertThat(upperBound.getTimestamp()).isEqualTo(id.getTimestamp() + 1);
+        assertThat(upperBound.getSequence()).isEqualTo(0);
+        assertThat(upperBound.getShardId()).isEqualTo(0);
+    }
+
+    @Test
+    void lowerBound() {
+        InstagramId id = InstagramId.makeId();
+        InstagramId lowerBound = InstagramId.lowerBound(id.getTimestamp());
+        assertThat(lowerBound.getTimestamp()).isEqualTo(lowerBound.getTimestamp());
+        assertThat(lowerBound.getSequence()).isEqualTo(0);
+        assertThat(lowerBound.getShardId()).isEqualTo(0);
     }
 }

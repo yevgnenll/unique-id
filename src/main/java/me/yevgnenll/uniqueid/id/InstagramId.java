@@ -2,6 +2,8 @@ package me.yevgnenll.uniqueid.id;
 
 import me.yevgnenll.uniqueid.util.Checks;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static me.yevgnenll.uniqueid.id.InstagramId.Component.*;
@@ -146,4 +148,42 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
     public double doubleValue() {
         return (double) value;
     }
+
+    public static InstagramId lowerBound(Instant instant) {
+        Checks.nonNull(instant, "instant must not be null");
+        return lowerBound(instant.toEpochMilli());
+    }
+
+    public static InstagramId lowerBound() {
+        return lowerBound(Clock.systemDefaultZone());
+    }
+
+    public static InstagramId lowerBound(Clock clock) {
+        Checks.nonNull(clock, "clock must not be null");
+        return lowerBound(clock.millis());
+    }
+
+    public static InstagramId lowerBound(long timestamp) {
+        Checks.nonNull(timestamp, "timestamp must not be null");
+        return makeId(timestamp, 0, 0);
+    }
+
+    public static InstagramId upperBound(Instant instant) {
+        Checks.nonNull(instant, "instant must not be null");
+        return upperBound(instant.toEpochMilli());
+    }
+
+    public static InstagramId upperBound(Clock clock) {
+        Checks.nonNull(clock, "clock must not be null");
+        return upperBound(clock.millis());
+    }
+
+    public static InstagramId upperBound(long timestamp) {
+        return makeId(timestamp + 1, 0, 0);
+    }
+
+    public static InstagramId upperBound() {
+        return upperBound(Clock.systemDefaultZone());
+    }
+
 }
