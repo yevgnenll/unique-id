@@ -70,4 +70,15 @@ class InstagramIdTest {
         assertThat(lowerBound.getSequence()).isEqualTo(0);
         assertThat(lowerBound.getShardId()).isEqualTo(0);
     }
+
+    @Test
+    void toBase32() {
+        InstagramId zero = InstagramId.makeId(1672498800000L, 0, 0);
+        assertThat(zero.toBase32()).isEqualTo("aaaaaaaaaaaaa===");
+
+        InstagramId decoded = InstagramId.withBase32("aaaaaaaaaaaaa===");
+        assertThat(decoded.getTimestamp()).isEqualTo(1672498800000L);
+        assertThat(decoded.getShardId()).isEqualTo(0);
+        assertThat(decoded.getSequence()).isEqualTo(0);
+    }
 }

@@ -1,5 +1,7 @@
 package me.yevgnenll.uniqueid.id;
 
+import com.google.common.io.BaseEncoding;
+import me.yevgnenll.uniqueid.util.Bytes;
 import me.yevgnenll.uniqueid.util.Checks;
 
 import java.time.Clock;
@@ -186,4 +188,13 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
         return upperBound(Clock.systemDefaultZone());
     }
 
+    @Override
+    public String toBase32() {
+        return BaseEncoding.base32().encode(Bytes.toByte(value, Long.BYTES)).toLowerCase();
+    }
+
+    public static InstagramId withBase32(String base32) {
+        Checks.nonNull(base32, "base32 value must not be null");
+        return new InstagramId(Bytes.toLong(BaseEncoding.base32().decode(base32.toUpperCase())));
+    }
 }
