@@ -52,4 +52,11 @@ class InstagramIdTest {
         InstagramId id = InstagramId.makeId(1672498800001L, 10, 15);
         assertThat(id.getSequence()).isEqualTo(15L);
     }
+
+    @Test
+    void nextKey() {
+        InstagramId.nextId();
+        InstagramId second = InstagramId.nextId();
+        assertThat(second.getSequence()).isEqualTo(2);
+    }
 }
