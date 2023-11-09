@@ -197,4 +197,9 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
         Checks.nonNull(base32, "base32 value must not be null");
         return new InstagramId(Bytes.toLong(BaseEncoding.base32().decode(base32.toUpperCase())));
     }
+
+    @Override
+    public String toHex() {
+        return BaseEncoding.base16().encode(Bytes.toByte(value, Long.BYTES));
+    }
 }

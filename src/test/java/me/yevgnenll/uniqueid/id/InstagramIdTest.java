@@ -81,4 +81,10 @@ class InstagramIdTest {
         assertThat(decoded.getShardId()).isEqualTo(0);
         assertThat(decoded.getSequence()).isEqualTo(0);
     }
+
+    @Test
+    void toHex() {
+        InstagramId zero = InstagramId.makeId(1672498800000L, 0, 0);
+        assertThat(zero.toHex()).isEqualTo("0000000000000000");
+    }
 }
