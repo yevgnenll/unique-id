@@ -223,4 +223,16 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
     public int hashCode() {
         return (int) (value ^ (value >>> 32));
     }
+
+    @Override
+    public String toBase64() {
+        byte[] encode = Bytes.toByte(value, Long.BYTES);
+        return BaseEncoding.base64Url().encode(encode);
+    }
+
+    public static InstagramId withBase64(String base64Url) {
+        Checks.nonNull(base64Url, "base64 must not be null");
+        long value = Bytes.toLong(BaseEncoding.base64Url().decode(base64Url));
+        return new InstagramId(value);
+    }
 }

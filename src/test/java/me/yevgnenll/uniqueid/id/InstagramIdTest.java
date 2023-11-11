@@ -98,11 +98,23 @@ class InstagramIdTest {
     void test() {
         for (int i = 0 ; i < 100 ; ++i) {
             if (i % 2 == 0) {
-                System.out.println(InstagramId.makeId(System.currentTimeMillis(), 500, i).toLong());
+                System.out.println(InstagramId.makeId(System.currentTimeMillis(), 500, i).toBase64());
             } else {
-
-                System.out.println(InstagramId.makeId(System.currentTimeMillis(), 6000, i).toLong());
+                System.out.println(InstagramId.makeId(System.currentTimeMillis(), 6000, i).toBase64());
             }
         }
+    }
+
+    @Test
+    void zeroToBase64() {
+        InstagramId zero = InstagramId.makeId(1672498800000L, 0, 0);
+        assertThat(zero.toBase64()).isEqualTo("AAAAAAAAAAA=");
+    }
+
+    @Test
+    void base64ToZero() {
+        InstagramId zero = InstagramId.makeId(1672498800000L, 0, 0);
+        String base64 = "AAAAAAAAAAA=";
+        assertThat(InstagramId.withBase64(base64)).isEqualTo(zero);
     }
 }
