@@ -202,4 +202,25 @@ public class InstagramId extends UniqueId implements Comparable<InstagramId> {
     public String toHex() {
         return BaseEncoding.base16().encode(Bytes.toByte(value, Long.BYTES));
     }
+
+    public static InstagramId withHex(String hex) {
+        Checks.nonNull(hex, "hex value must not be null");
+        byte[] decode = BaseEncoding.base16().decode(hex);
+        return new InstagramId(Bytes.toLong(decode));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InstagramId that = (InstagramId) o;
+
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (value ^ (value >>> 32));
+    }
 }
