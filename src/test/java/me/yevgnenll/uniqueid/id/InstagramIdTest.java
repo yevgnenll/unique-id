@@ -93,4 +93,16 @@ class InstagramIdTest {
         String hexValue = "0000000000000000";
         assertThat(InstagramId.withHex(hexValue)).isEqualTo(InstagramId.makeId(1672498800000L, 0, 0));
     }
+
+    @Test
+    void test() {
+        for (int i = 0 ; i < 100 ; ++i) {
+            if (i % 2 == 0) {
+                System.out.println(InstagramId.makeId(System.currentTimeMillis(), 500, i).toLong());
+            } else {
+
+                System.out.println(InstagramId.makeId(System.currentTimeMillis(), 6000, i).toLong());
+            }
+        }
+    }
 }
