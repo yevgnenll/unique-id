@@ -2,7 +2,7 @@ package me.yevgnenll.uniqueid.util;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class ChecksTest {
@@ -15,6 +15,13 @@ class ChecksTest {
     @Test
     void nonNullThenNothing() {
         assertDoesNotThrow(() -> Checks.nonNull("non null", "not null must be"));
+    }
+
+    @Test
+    void nonNullGetDefaultMessage() {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> Checks.nonNull(null))
+                .withMessage(null);
     }
 
 }

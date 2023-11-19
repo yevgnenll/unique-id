@@ -10,6 +10,10 @@ public class Checks {
         }
     }
 
+    public static <T extends @NonNull Object> T nonNull(T object) {
+        return nonNull(object, null);
+    }
+
     public static <T extends @NonNull Object> T nonNull(T object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
