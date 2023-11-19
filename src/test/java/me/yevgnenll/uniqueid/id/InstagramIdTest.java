@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class InstagramIdTest {
 
@@ -108,6 +110,7 @@ class InstagramIdTest {
     @Test
     void zeroToBase64() {
         InstagramId zero = InstagramId.makeId(1672498800000L, 0, 0);
+        System.out.println(zero.toBase64());
         assertThat(zero.toBase64()).isEqualTo("AAAAAAAAAAA=");
     }
 
@@ -116,5 +119,13 @@ class InstagramIdTest {
         InstagramId zero = InstagramId.makeId(1672498800000L, 0, 0);
         String base64 = "AAAAAAAAAAA=";
         assertThat(InstagramId.withBase64(base64)).isEqualTo(zero);
+    }
+
+    @Test
+    void base64UrlOnly() {
+        assertThatThrownBy(() -> InstagramId.withBase64("+AAAAAAAAAA="));
+        assertThatThrownBy(() -> InstagramId.withBase64("/AAAAAAAAAA="));
+        assertDoesNotThrow(() -> InstagramId.withBase64("-AAAAAAAAAA="));
+        assertDoesNotThrow(() -> InstagramId.withBase64("_AAAAAAAAAA="));
     }
 }
