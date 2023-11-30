@@ -292,4 +292,17 @@ public class Ascii {
         return true;
     }
 
+    public static boolean isLowerCase(char c) {
+        return c >= 'a' && c <= 'z';
+    }
+
+    public static boolean isLowerCase(String str) {
+        for (int i = 0; i < str.length(); i ++) {
+            if (!isLowerCase(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

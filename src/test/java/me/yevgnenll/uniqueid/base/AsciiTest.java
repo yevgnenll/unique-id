@@ -40,4 +40,31 @@ class AsciiTest {
         assertThat(Ascii.isUpperCase("ABCDEFGHIJKLMNOPQRSTUVWXYZ")).isTrue();
     }
 
+    @Test
+    void isLowerCaseTrueWhenAtoZ() {
+        for (char c = 'a'; c <= 'z'; c ++) {
+            assertThat(Ascii.isLowerCase(c)).isTrue();
+        }
+    }
+
+    @Test
+    void isLowerCaseFalseWhenATOZ() {
+        for (char c = 0; c < 256; c ++) {
+            if (c >= 'a' && c <= 'z') {
+                continue;
+            }
+            assertThat(Ascii.isLowerCase(c)).isFalse();
+        }
+    }
+
+    @Test
+    void isLowerCaseToStringHasOneUpperThanReturnFalse() {
+        assertThat(Ascii.isLowerCase("abcdefghijklmnopqrstuvwxyzA")).isFalse();
+    }
+
+    @Test
+    void isLowerCaseToStringAllLowerCaseThanReturnTrue() {
+        assertThat(Ascii.isLowerCase("abcdefghijklmnopqrstuvwxyz")).isTrue();
+    }
+
 }
