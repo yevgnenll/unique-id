@@ -282,4 +282,14 @@ public class Ascii {
     public static boolean isUpperCase(char c) {
         return c >= 'A' && c <= 'Z';
     }
+
+    public static boolean isUpperCase(String str) {
+        for (int i = 0; i < str.length(); i ++) {
+            if (!isUpperCase(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

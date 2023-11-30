@@ -29,4 +29,15 @@ class AsciiTest {
         assertThat(Ascii.isUpperCase('\u0001')).isFalse();
     }
 
+    @Test
+    void isUpperCaseToStringHasOneLowerThanReturnFalse() {
+        assertThat(Ascii.isUpperCase("ABcDF")).isFalse();
+        assertThat(Ascii.isUpperCase("z")).isFalse();
+    }
+
+    @Test
+    void isUpperCaseToStringAllUpperThanReturnTrue() {
+        assertThat(Ascii.isUpperCase("ABCDEFGHIJKLMNOPQRSTUVWXYZ")).isTrue();
+    }
+
 }
