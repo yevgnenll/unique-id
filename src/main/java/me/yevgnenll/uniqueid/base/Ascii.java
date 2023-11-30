@@ -278,4 +278,8 @@ public class Ascii {
      * The maximum value of an ASCII character.
      */
     public static final char MAX = 127;
+
+    public static boolean isUpperCase(char c) {
+        return c >= 'A' && c <= 'Z';
+    }
 }
