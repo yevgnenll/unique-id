@@ -70,6 +70,30 @@ class AsciiTest {
     }
 
     @Test
+    void isLowerCaseCharSequenceAllLowerThanReturnTrue() {
+        CharSequence chars = "abcdefghijklmnopqrstuvwxyz";
+        assertThat(Ascii.isLowerCase(chars)).isTrue();
+    }
+
+    @Test
+    void isLowerCaseCharSequenceHasOneUpperThanReturnFalse() {
+        CharSequence chars = "abcdefghijklmnopqrstuvwxyzZ";
+        assertThat(Ascii.isLowerCase(chars)).isFalse();
+    }
+
+    @Test
+    void isUpperCaseCharSequenceAllUpperThanReturnTrue() {
+        CharSequence chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        assertThat(Ascii.isUpperCase(chars)).isTrue();
+    }
+
+    @Test
+    void isUpperCaseCharSequenceHasOneLowerCaseThanReturnFalse() {
+        CharSequence chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZz";
+        assertThat(Ascii.isUpperCase(chars)).isFalse();
+    }
+
+    @Test
     void toUpperCaseIfLowerAThanUpperA() {
         assertThat(Ascii.toUpperCase('a')).isEqualTo('A');
         for (char c = 'a'; c <= 'z'; c ++) {
@@ -115,5 +139,30 @@ class AsciiTest {
             char upperCase = Ascii.toLowerCase(c);
             assertThat(Ascii.isLowerCase(upperCase)).isTrue();
         }
+    }
+
+    @Test
+    void toLowerCaseString() {
+        CharSequence chars = "ABCDefgHIJK";
+        assertThat(Ascii.toLowerCase(chars)).isEqualTo("abcdefghijk");
+    }
+
+    @Test
+    void toLowerCaseChar() {
+        for (char c = 'A'; c < 'Z'; c ++) {
+            assertThat(Ascii.isLowerCase(Ascii.toLowerCase(c))).isTrue();
+        }
+    }
+
+    @Test
+    void toLowerCaseCharSequence() {
+        CharSequence chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        assertThat(Ascii.toLowerCase(chars)).isEqualTo("abcdefghijklmnopqrstuvwxyz");
+    }
+
+    @Test
+    void toUpperCaseCharSequence() {
+        CharSequence chars = "abcdefghijklmnopqrstuvwxyzAB";
+        assertThat(Ascii.toUpperCase(chars)).isEqualTo("ABCDEFGHIJKLMNOPQRSTUVWXYZAB");
     }
 }

@@ -304,6 +304,28 @@ public class Ascii {
         return c >= 'a' && c <= 'z';
     }
 
+    public static boolean isLowerCase(CharSequence chars) {
+        Checks.nonNull(chars);
+
+        for (int i = 0; i < chars.length(); i ++) {
+            if (isUpperCase(chars.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isUpperCase(CharSequence chars) {
+        Checks.nonNull(chars);
+
+        for (int i = 0; i < chars.length(); i ++) {
+            if (isLowerCase(chars.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isLowerCase(String str) {
         Checks.nonNull(str);
 
@@ -362,5 +384,42 @@ public class Ascii {
         }
 
         return (char) (c ^ CONVERSION_MASK);
+    }
+
+    public static String toLowerCase(String str) {
+        Checks.nonNull(str);
+
+        int length = str.length();
+        for (int i = 0; i < length; i ++) {
+            if (isUpperCase(str.charAt(i))) {
+                char[] convertedChars;
+                for (convertedChars = str.toCharArray(); i < length; i ++) {
+                    if (isUpperCase(str.charAt(i))) {
+                        convertedChars[i] = toLowerCase(str.charAt(i));
+                    }
+                }
+                return String.valueOf(convertedChars);
+            }
+        }
+        return str;
+    }
+
+    public static String toLowerCase(CharSequence chars) {
+        Checks.nonNull(chars);
+
+        if (chars instanceof String) {
+            return toLowerCase(chars.toString());
+        }
+
+        int length = chars.length();
+        if (isLowerCase(chars)) {
+            return chars.toString();
+        }
+
+        char[] convertedChars = new char[length];
+        for (int i = 0; i < length; i ++) {
+            convertedChars[i] = toLowerCase(chars.charAt(i));
+        }
+        return String.valueOf(convertedChars);
     }
 }
