@@ -1,5 +1,7 @@
 package me.yevgnenll.uniqueid.base;
 
+import me.yevgnenll.uniqueid.util.Checks;
+
 public class Ascii {
 
     private Ascii() {}
@@ -282,10 +284,13 @@ public class Ascii {
     private static final int CONVERSION_MASK = 0b00100000;
 
     public static boolean isUpperCase(char c) {
+        Checks.nonNull(c);
         return c >= 'A' && c <= 'Z';
     }
 
     public static boolean isUpperCase(String str) {
+        Checks.nonNull(str);
+
         for (int i = 0; i < str.length(); i ++) {
             if (!isUpperCase(str.charAt(i))) {
                 return false;
@@ -295,10 +300,13 @@ public class Ascii {
     }
 
     public static boolean isLowerCase(char c) {
+        Checks.nonNull(c);
         return c >= 'a' && c <= 'z';
     }
 
     public static boolean isLowerCase(String str) {
+        Checks.nonNull(str);
+
         for (int i = 0; i < str.length(); i ++) {
             if (!isLowerCase(str.charAt(i))) {
                 return false;
@@ -315,6 +323,8 @@ public class Ascii {
     }
 
     public static String toUpperCase(String str) {
+        Checks.nonNull(str);
+
         int length = str.length();
         for(int i = 0; i < length; ++i) {
             if (isLowerCase(str.charAt(i))) {
@@ -330,4 +340,19 @@ public class Ascii {
         return str;
     }
 
+    public static String toUpperCase(CharSequence chars) {
+        Checks.nonNull(chars);
+
+        if (chars instanceof String) {
+            return toUpperCase(chars.toString());
+        }
+
+        int length = chars.length();
+        char[] converted = new char[length];
+        for (int i = 0 ; i < length; i ++) {
+            converted[i] = toUpperCase(chars.charAt(i));
+        }
+
+        return String.valueOf(converted);
+    }
 }

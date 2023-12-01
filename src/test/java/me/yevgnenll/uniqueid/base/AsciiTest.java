@@ -3,6 +3,7 @@ package me.yevgnenll.uniqueid.base;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AsciiTest {
 
@@ -93,5 +94,16 @@ class AsciiTest {
         for (char c = 'a'; c <= 'z'; c ++) {
             assertThat(Ascii.toUpperCase(String.valueOf(c))).isEqualTo(String.valueOf((char)(c ^ 32)));
         }
+    }
+
+    @Test
+    void throwIAEWhenNull() {
+        assertThatThrownBy(() -> Ascii.toUpperCase(null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void charsSequenceToUpperCaseAsString() {
+        CharSequence chars = "abcdefGHIJklm";
+        assertThat(Ascii.toUpperCase(chars)).isEqualTo("ABCDEFGHIJKLM");
     }
 }
