@@ -10,6 +10,10 @@ public class Checks {
         }
     }
 
+    public static void isTrue(boolean expression) {
+        isTrue(expression, null);
+    }
+
     public static <T extends @NonNull Object> T nonNull(T object) {
         return nonNull(object, null);
     }
