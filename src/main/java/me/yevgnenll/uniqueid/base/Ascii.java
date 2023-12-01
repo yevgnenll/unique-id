@@ -355,4 +355,12 @@ public class Ascii {
 
         return String.valueOf(converted);
     }
+
+    public static char toLowerCase(char c) {
+        if (isLowerCase(c)) {
+            return c;
+        }
+
+        return (char) (c ^ CONVERSION_MASK);
+    }
 }

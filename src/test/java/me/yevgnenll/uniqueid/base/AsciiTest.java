@@ -1,5 +1,6 @@
 package me.yevgnenll.uniqueid.base;
 
+import me.yevgnenll.uniqueid.util.Checks;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -105,5 +106,14 @@ class AsciiTest {
     void charsSequenceToUpperCaseAsString() {
         CharSequence chars = "abcdefGHIJklm";
         assertThat(Ascii.toUpperCase(chars)).isEqualTo("ABCDEFGHIJKLM");
+    }
+
+    @Test
+    void toLowerCase() {
+        for (char c = 'A'; c <= 'Z'; c ++) {
+            Checks.isTrue(Ascii.isUpperCase(c));
+            char upperCase = Ascii.toLowerCase(c);
+            assertThat(Ascii.isLowerCase(upperCase)).isTrue();
+        }
     }
 }
