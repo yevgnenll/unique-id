@@ -83,6 +83,12 @@ class AsciiTest {
     }
 
     @Test
+    void toUpperCaseReturnItsSelfWhenUpper() {
+        assertThat(Ascii.toUpperCase('A')).isEqualTo('A');
+        assertThat(Ascii.toUpperCase('Z')).isEqualTo('Z');
+    }
+
+    @Test
     void toUpperCaseWhenString() {
         for (char c = 'a'; c <= 'z'; c ++) {
             assertThat(Ascii.toUpperCase(String.valueOf(c))).isEqualTo(String.valueOf((char)(c ^ 32)));
