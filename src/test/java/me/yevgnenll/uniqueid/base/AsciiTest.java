@@ -171,7 +171,7 @@ class AsciiTest {
         String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         for (int i = 0; i < str.length(); i ++) {
-            assertThat(Ascii.getAlphabetIndex(str.charAt(i))).isEqualTo(i);
+            assertThat(Ascii.getAlphaIndex(str.charAt(i))).isEqualTo(i);
         }
     }
 
@@ -180,14 +180,39 @@ class AsciiTest {
         String str = "abcdefghijklmnopqrstuvwxyz";
 
         for (int i = 0; i < str.length(); i ++) {
-            assertThat(Ascii.getAlphabetIndex(str.charAt(i))).isEqualTo(i);
+            assertThat(Ascii.getAlphaIndex(str.charAt(i))).isEqualTo(i);
         }
     }
 
     @Test
-    void exceptionWhenNotAlphabet() {
-        assertThatThrownBy(() -> Ascii.getAlphabetIndex('$')).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Ascii.getAlphabetIndex('0')).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Ascii.getAlphabetIndex(' ')).isInstanceOf(IllegalArgumentException.class);
+    void equalsIgnoreTrueCase() {
+        CharSequence s1 = "abcdefg";
+        CharSequence s2 = "aBcDeFg";
+
+        assertThat(Ascii.equalsIgnoreCases(s1, s2)).isTrue();
+    }
+
+    @Test
+    void equalsIgnoreTrueCaseDifferentCase() {
+        CharSequence s1 = "abcdefg";
+        CharSequence s2 = "aBcDeFg";
+
+        assertThat(Ascii.equalsIgnoreCases(s1, s2)).isTrue();
+    }
+
+    @Test
+    void equalsIgnoreTrueCaseWithoutAlphabet() {
+        CharSequence s1 = "!@#$$%%a";
+        CharSequence s2 = "!@#$$%%A";
+
+        assertThat(Ascii.equalsIgnoreCases(s1, s2)).isTrue();
+    }
+
+    @Test
+    void equalsIgnoreFalseCaseWithoutAlphabet() {
+        CharSequence s1 = "!@#$$%%a";
+        CharSequence s2 = "!@#$$%%b";
+
+        assertThat(Ascii.equalsIgnoreCases(s1, s2)).isFalse();
     }
 }

@@ -422,13 +422,31 @@ public class Ascii {
         return String.valueOf(convertedChars);
     }
 
-    public static int getAlphabetIndex(char c) {
-        boolean expression = isLowerCase(c) || isUpperCase(c);
-        if (!expression) {
-            throw new IllegalArgumentException();
-        }
-
-        return toLowerCase(c) - LOWER_A_ASCII_INDEX;
+    /**
+     * 0100 0000 -> @
+     * 0010 0000 -> mask
+     * 0110 0000 -> `
+     * @param c
+     * @return or operated char
+     */
+    public static int getAlphaIndex(char c) {
+        return (CONVERSION_MASK | c) - LOWER_A_ASCII_INDEX;
     }
 
+    public static boolean equalsIgnoreCases(CharSequence c1, CharSequence c2) {
+        if (c1 == c2) {
+            return true;
+        } else if (c1.length() != c2.length()) {
+            return false;
+        } else {
+            for (int i = 0; i < c1.length(); i ++) {
+                int firstIndex = getAlphaIndex(c1.charAt(i));
+                int secondIndex = getAlphaIndex(c2.charAt(i));
+                if (firstIndex != secondIndex) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 }
