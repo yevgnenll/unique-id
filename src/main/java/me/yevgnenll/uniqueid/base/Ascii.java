@@ -308,7 +308,10 @@ public class Ascii {
     }
 
     public static char toUpperCase(char c) {
-        return (char) (c ^ CONVERSION_MASK);
+        if (isLowerCase(c)) {
+            return (char) (c ^ CONVERSION_MASK);
+        }
+        return c;
     }
 
     public static String toUpperCase(String str) {
