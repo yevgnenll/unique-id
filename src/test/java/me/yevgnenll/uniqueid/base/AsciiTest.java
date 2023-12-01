@@ -67,4 +67,25 @@ class AsciiTest {
         assertThat(Ascii.isLowerCase("abcdefghijklmnopqrstuvwxyz")).isTrue();
     }
 
+    @Test
+    void toUpperCaseIfLowerAThanUpperA() {
+        assertThat(Ascii.toUpperCase('a')).isEqualTo('A');
+        for (char c = 'a'; c <= 'z'; c ++) {
+            assertThat(Ascii.toUpperCase(c)).isEqualTo((char)(c ^ 32));
+        }
+        assertThat(Ascii.toUpperCase('z')).isEqualTo('Z');
+    }
+
+    @Test
+    void toUpperCaseIfHasLowerThanAllUpperCase() {
+        String str = "ABCEFGhijkLMNOP";
+        assertThat(Ascii.toUpperCase(str)).isEqualTo("ABCEFGHIJKLMNOP");
+    }
+
+    @Test
+    void toUpperCaseWhenString() {
+        for (char c = 'a'; c <= 'z'; c ++) {
+            assertThat(Ascii.toUpperCase(String.valueOf(c))).isEqualTo(String.valueOf((char)(c ^ 32)));
+        }
+    }
 }

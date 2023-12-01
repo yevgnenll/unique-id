@@ -279,6 +279,8 @@ public class Ascii {
      */
     public static final char MAX = 127;
 
+    private static final int CONVERSION_MASK = 0b00100000;
+
     public static boolean isUpperCase(char c) {
         return c >= 'A' && c <= 'Z';
     }
@@ -303,6 +305,26 @@ public class Ascii {
             }
         }
         return true;
+    }
+
+    public static char toUpperCase(char c) {
+        return (char) (c ^ CONVERSION_MASK);
+    }
+
+    public static String toUpperCase(String str) {
+        int length = str.length();
+        for(int i = 0; i < length; ++i) {
+            if (isLowerCase(str.charAt(i))) {
+                char[] convertedChars;
+                for (convertedChars = str.toCharArray(); i < length; i ++) {
+                    if (isLowerCase(convertedChars[i])) {
+                        convertedChars[i] = toUpperCase(convertedChars[i]);
+                    }
+                }
+                return String.valueOf(convertedChars);
+            }
+        }
+        return str;
     }
 
 }
