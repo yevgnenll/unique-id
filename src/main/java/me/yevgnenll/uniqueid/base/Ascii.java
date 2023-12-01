@@ -282,9 +282,9 @@ public class Ascii {
     public static final char MAX = 127;
 
     private static final int CONVERSION_MASK = 0b00100000;
+    private static final int LOWER_A_ASCII_INDEX = 97;
 
     public static boolean isUpperCase(char c) {
-        Checks.nonNull(c);
         return c >= 'A' && c <= 'Z';
     }
 
@@ -300,7 +300,6 @@ public class Ascii {
     }
 
     public static boolean isLowerCase(char c) {
-        Checks.nonNull(c);
         return c >= 'a' && c <= 'z';
     }
 
@@ -422,4 +421,14 @@ public class Ascii {
         }
         return String.valueOf(convertedChars);
     }
+
+    public static int getAlphabetIndex(char c) {
+        boolean expression = isLowerCase(c) || isUpperCase(c);
+        if (!expression) {
+            throw new IllegalArgumentException();
+        }
+
+        return toLowerCase(c) - LOWER_A_ASCII_INDEX;
+    }
+
 }

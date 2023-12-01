@@ -165,4 +165,29 @@ class AsciiTest {
         CharSequence chars = "abcdefghijklmnopqrstuvwxyzAB";
         assertThat(Ascii.toUpperCase(chars)).isEqualTo("ABCDEFGHIJKLMNOPQRSTUVWXYZAB");
     }
+
+    @Test
+    void getAlphabetIndexWhenUpperCase() {
+        String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        for (int i = 0; i < str.length(); i ++) {
+            assertThat(Ascii.getAlphabetIndex(str.charAt(i))).isEqualTo(i);
+        }
+    }
+
+    @Test
+    void getAlphabetIndexWhenLowerCase() {
+        String str = "abcdefghijklmnopqrstuvwxyz";
+
+        for (int i = 0; i < str.length(); i ++) {
+            assertThat(Ascii.getAlphabetIndex(str.charAt(i))).isEqualTo(i);
+        }
+    }
+
+    @Test
+    void exceptionWhenNotAlphabet() {
+        assertThatThrownBy(() -> Ascii.getAlphabetIndex('$')).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Ascii.getAlphabetIndex('0')).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Ascii.getAlphabetIndex(' ')).isInstanceOf(IllegalArgumentException.class);
+    }
 }
